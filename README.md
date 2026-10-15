@@ -11,6 +11,26 @@ Your progress lives in plain Markdown files, so the game is a view over notes yo
 
 *A fan project. Not affiliated with Nintendo, Game Freak or The Pokemon Company.*
 
+## Screenshots
+
+All captures come from the committed sample vault, so the questions and applications are invented.
+
+![Kanto map with a marker for every town and a list of towns on the left](docs/screenshots/map.png)
+
+The Kanto map, one marker per town and each town tied to a study topic.
+
+![A wild Pidgey encounter card with a multiple choice question](docs/screenshots/encounter.png)
+
+A town opened with a wild encounter. The question comes from the town's bank, and the badge shows it is worth double XP because it matches the next interview round.
+
+![Trainer card with six party slots, one filled by a caught Pidgey](docs/screenshots/trainer-card.png)
+
+The trainer card in Pallet Town, with the party, XP per study track and the pokedex count.
+
+<img src="docs/screenshots/map-phone.png" alt="The Kanto map on a phone with the town list in a drawer below" width="260">
+
+The map on a phone, where the town list moves into a drawer under the map.
+
 ## Quick start
 
 ```bash
