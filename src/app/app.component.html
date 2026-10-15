@@ -1,0 +1,27 @@
+<ion-app>
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Poke Prep</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list lines="none">
+        @for (item of items; track item.url) {
+          <ion-menu-toggle auto-hide="false">
+            <ion-item
+              [routerLink]="item.url"
+              routerLinkActive="selected"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerDirection="root"
+            >
+              <ion-icon slot="start" [name]="item.icon"></ion-icon>
+              <ion-label>{{ item.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        }
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>
