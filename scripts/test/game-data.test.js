@@ -263,7 +263,7 @@ test('drill and hunt xp, hunt gets no share', async () => {
 });
 
 test('applications parse handles both tables and skips header rows', () => {
-  const md = '| date | company | role | url | resume | status | follow_up |\n|---|---|---|---|---|---|---|\n| 2026-08-31 | Acme | FS | u | r | submitted | f |\n\n| Date | Company | Role | Source | Resume variant | Status | Next action |\n|---|---|---|---|---|---|---|\n| — | — | — | — | — | — | — |\n| 2026-08-24 | Globex | Sr | u | r | assessment done | n |\n| 2026-08-25 | Initech | Sr | u | r | Interview-scheduling | n |\n';
+  const md = '| date | company | role | url | resume | status | follow_up |\n|---|---|---|---|---|---|---|\n| 2026-08-31 | Acme | FS | u | r | submitted | f |\n\n| Date | Company | Role | Source | Resume variant | Status | Next action |\n|---|---|---|---|---|---|---|\n| \u2014 | \u2014 | \u2014 | \u2014 | \u2014 | \u2014 | \u2014 |\n| 2026-08-24 | Globex | Sr | u | r | assessment done | n |\n| 2026-08-25 | Initech | Sr | u | r | Interview-scheduling | n |\n';
   const rows = g.parseApplications(md);
   assert.deepEqual(rows.map(r => [r.company, r.status]), [['Acme', 'submitted'], ['Globex', 'assessment'], ['Initech', 'interview']]);
 });

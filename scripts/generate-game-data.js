@@ -206,9 +206,9 @@ function parseParty(md) {
   for (const r of tableUnder(md, 'Party')) {
     const slot = Number(r['slot']);
     const sp = String(r['species'] || '').trim();
-    const real = sp && !/^first\b/i.test(sp) && !/^[—-]+$/.test(sp);
+    const real = sp && !/^first\b/i.test(sp) && !/^[\u2014-]+$/.test(sp);
     const nick = String(r['nickname'] || '').trim();
-    out[slot] = { species: real ? speciesSlug(sp) : null, nickname: nick && !/^[—-]+$/.test(nick) ? nick : null };
+    out[slot] = { species: real ? speciesSlug(sp) : null, nickname: nick && !/^[\u2014-]+$/.test(nick) ? nick : null };
   }
   return out;
 }
