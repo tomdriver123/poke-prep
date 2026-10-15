@@ -747,6 +747,9 @@ server.on('error', (err) => {
 
 server.listen(PORT, HOST, () => {
   console.log(`poke-prep listening on http://${HOST}:${server.address().port} (vault: ${VAULT})`);
+  // The vault may have changed while the server was down (or the data dir may hold files
+  // generated from another vault), so a start always regenerates once in the background.
+  regenerate().catch(logError);
 });
 
 for (const signal of ['SIGINT', 'SIGTERM']) {
