@@ -1,0 +1,111 @@
+<div class="panel-bar">
+  <div class="slot"><ng-content select="[data-slot='start']" /></div>
+  <h2 id="panel-heading" tabindex="-1" #heading>{{ title() }}</h2>
+  <div class="slot"><ng-content select="[data-slot='end']" /></div>
+</div>
+<div class="panel-body">
+  @if (selectedId() === undefined) {
+    <nav aria-labelledby="panel-heading">
+      @if (loading()) {
+        <p role="status">Loading towns…</p>
+      } @else if (error()) {
+        <p role="alert">{{ error() }}</p>
+      } @else if (towns().length === 0) {
+        <p>No towns to show.</p>
+      } @else {
+        <ul class="town-list">
+          @for (town of towns(); track town.id) {
+            <li>
+              <a #townLink [routerLink]="pokePath" [queryParams]="townQuery(town.id)" [attr.data-town-id]="town.id"
+                ><svg
+                  class="pin"
+                  aria-hidden="true"
+                  viewBox="0 0 28 40"
+                  width="14"
+                  height="20"
+                  [style.color]="pinColor($index)"
+                >
+                  <path fill="currentColor" [attr.d]="PIN_PATH" /></svg
+                ><span class="row-text"
+                  ><span class="row-name">{{ town.name }}</span>
+                  @if (subtitle(town); as sub) {
+                    <span class="row-sub">{{ sub }}</span>
+                  }</span
+                >
+                @if (town.type) {
+                  <span
+                    class="type-dot"
+                    aria-hidden="true"
+                    [style.background]="typeColor(town.type).bg"
+                  ></span>
+                }</a
+              >
+            </li>
+          }
+        </ul>
+      }
+    </nav>
+  } @else if (loading()) {
+    <p role="status">Loading towns…</p>
+  } @else if (error()) {
+    <p role="alert">{{ error() }}</p>
+  } @else {
+    @if (selected(); as town) {
+      <article>
+        @if (town.role) {
+          <p class="role">{{ town.role }}</p>
+        }
+        @if (town.trackLabel) {
+          <p class="track">
+            <span>{{ town.trackLabel }}</span>
+            @if (town.type) {
+              <span
+                class="type-badge"
+                [style.background]="typeColor(town.type).bg"
+                [style.color]="typeColor(town.type).ink"
+                >{{ town.type }}</span
+              >
+            }
+          </p>
+        }
+        @if (town.mode === 'home') {
+          <app-trainer-card [game]="game()" />
+        } @else {
+          @if (town.mode === 'external' && town.external) {
+            <p class="external">{{ town.external }}</p>
+          }
+          <div class="encounter-slot"><ng-content select="[data-slot='encounter']"></ng-content></div>
+          @if (town.pool.length > 0) {
+            <h3>Pool</h3>
+            <ul class="pool">
+              @for (entry of town.pool; track entry.species) {
+                <li class="mon" [class]="'mon ' + poolState(entry)">
+                  @if (entry.sprite) {
+                    <img [src]="entry.sprite" [alt]="entry.display" width="64" height="64" loading="lazy" />
+                  } @else {
+                    <span class="no-sprite" role="img" [attr.aria-label]="entry.display">?</span>
+                  }
+                  <span class="mon-name">{{ poolState(entry) === 'caught' ? entry.display : '???' }}</span>
+                  @if (isLocked(town, entry)) {
+                    <span class="lock" role="img" aria-label="Locked">&#128274;</span>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        }
+        @for (gate of town.gates; track $index) {
+          <div class="gate" [class.is-open]="gate.open" [class.is-locked]="!gate.open">
+            <p class="gate-head">
+              <span class="gate-state">{{ gateState(gate) }}</span>
+              <span>{{ gate.scope === 'species' ? (gate.species ?? 'Species') : 'Town' }}</span>
+            </p>
+            <p>{{ gate.reason }}</p>
+          </div>
+        }
+      </article>
+    } @else {
+      <p>No town matches this link.</p>
+    }
+  }
+</div>

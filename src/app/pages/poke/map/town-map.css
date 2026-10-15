@@ -1,0 +1,40 @@
+.town-map {
+  display: block;
+  height: 100%;
+}
+
+.town-map .leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  font-family: var(--font);
+  background: var(--map-bg, #cfe8c4);
+}
+
+.town-map .town-route {
+  stroke: var(--map-route, #8a7a52);
+  stroke-opacity: 0.8;
+  stroke-dasharray: 2 6;
+  stroke-linecap: round;
+}
+
+.town-map .town-pin {
+  color: var(--color-primary);
+}
+
+.town-map .town-pin svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.town-map .town-pin.is-selected svg {
+  transform: scale(1.3);
+  transform-origin: 50% 100%;
+}
+
+.town-map .town-pin.is-selected svg path {
+  stroke: var(--color-tertiary);
+  stroke-width: 2px;
+  paint-order: stroke;
+}

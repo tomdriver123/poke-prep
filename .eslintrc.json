@@ -12,12 +12,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@angular-eslint/component-class-suffix": [
-          "error",
-          {
-            "suffixes": ["Page", "Component"]
-          }
-        ],
+        "@angular-eslint/component-class-suffix": "off",
         "@angular-eslint/component-selector": [
           "error",
           {
